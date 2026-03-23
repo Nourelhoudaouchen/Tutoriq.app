@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ELA Worksheet – Tutoriq</title>
+  <style>
+    /* ── Screen wrapper ── */
+    body {
+      margin: 0;
+      background: #e8eaf0;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      color: #1a1a2e;
+    }
+
+    .screen-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background: #1e1b4b;
+      color: #fff;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px;
+      gap: 16px;
+    }
+    .screen-toolbar .logo {
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: .3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .screen-toolbar .logo-badge {
+      width: 26px; height: 26px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, #7c3aed, #22d3ee);
+      display: grid; place-items: center;
+      font-weight: 800; font-size: 13px;
+    }
+    .btn-print {
+      padding: 9px 20px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #7c3aed, #22d3ee);
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-print:hover { opacity: .88; }
+
+    /* ── Page shell ── */
+    .page-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 36px 20px 60px;
+    }
+
+    /* ── Printable page ── */
+    .ws-page {
+      width: 816px;               /* 8.5 in @ 96 dpi */
+      min-height: 1056px;          /* 11 in @ 96 dpi */
+      background: #fff;
+      padding: 56px 64px 64px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.18);
+      position: relative;
+    }
+
+    /* ── Header band ── */
+    .ws-header {
+      border-top: 6px solid #7c3aed;
+      border-bottom: 3px solid #22d3ee;
+      padding: 14px 0 10px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .ws-title-block { flex: 1; }
+    .ws-grade-badge {
+      background: #7c3aed;
+      color: #fff;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+    .ws-main-title {
+      font-size: 22px;
+      font-weight: 800;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      color: #1e1b4b;
+      margin: 0 0 2px;
+      line-height: 1.2;
+    }
+    .ws-subtitle {
+      font-size: 13px;
+      color: #6b7280;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      margin: 0;
+    }
+    .ws-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 12px;
+      color: #374151;
+      min-width: 200px;
+    }
+    .ws-meta label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ws-meta .field-line {
+      flex: 1;
+      border-bottom: 1.5px solid #9ca3af;
+      height: 16px;
+    }
+
+    /* ── Passage box ── */
+    .passage-box {
+      background: #f8f7ff;
+      border: 1.5px solid #c4b5fd;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+    }
+    .passage-label {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: #7c3aed;
+      margin-bottom: 6px;
+    }
+    .passage-title {
+      font-size: 16px;
+      font-weight: 700;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      color: #1e1b4b;
+      margin: 0 0 10px;
+    }
+    .passage-text {
+      font-size: 13.5px;
+      line-height: 1.85;
+      color: #1f2937;
+    }
+    .passage-text p { margin: 0 0 10px; }
+    .passage-text p:last-child { margin-bottom: 0; }
+
+    /* ── Section headers ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 22px 0 12px;
+    }
+    .section-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #7c3aed;
+      color: #fff;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e1b4b;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .section-divider {
+      flex: 1;
+      height: 1.5px;
+      background: linear-gradient(to right, #c4b5fd, transparent);
+    }
+
+    /* ── Questions ── */
+    .question-block {
+      margin-bottom: 18px;
+    }
+    .question-text {
+      font-size: 13px;
+      font-weight: 600;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      color: #1f2937;
+      margin: 0 0 8px;
+      line-height: 1.5;
+    }
+    .question-text .q-num {
+      color: #7c3aed;
+      font-weight: 800;
+      margin-right: 4px;
+    }
+
+    /* Multiple choice */
+    .mc-options {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 20px;
+    }
+    .mc-options li {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 12.5px;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .mc-bubble {
+      width: 16px; height: 16px;
+      border: 1.5px solid #9ca3af;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Short answer lines */
+    .answer-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .answer-line {
+      border-bottom: 1.5px solid #d1d5db;
+      height: 22px;
+    }
+
+    /* Vocabulary table */
+    .vocab-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 12.5px;
+      margin-top: 4px;
+    }
+    .vocab-table th {
+      background: #ede9fe;
+      color: #4c1d95;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      padding: 7px 10px;
+      text-align: left;
+      border: 1px solid #c4b5fd;
+    }
+    .vocab-table td {
+      padding: 7px 10px;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      vertical-align: top;
+    }
+    .vocab-table tr:nth-child(even) td { background: #f9fafb; }
+    .vocab-word { font-weight: 700; color: #1e1b4b; }
+    .vocab-def-line {
+      border-bottom: 1px solid #d1d5db;
+      height: 16px;
+      display: inline-block;
+      width: 100%;
+      margin-top: 2px;
+    }
+
+    /* Writing prompt */
+    .writing-box {
+      background: #f9fafb;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 6px;
+    }
+    .writing-prompt {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 12.5px;
+      color: #374151;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .writing-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .writing-line {
+      border-bottom: 1px solid #d1d5db;
+      height: 24px;
+    }
+
+    /* ── Footer ── */
+    .ws-footer {
+      margin-top: 32px;
+      padding-top: 12px;
+      border-top: 2px solid #ede9fe;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 10.5px;
+      color: #9ca3af;
+    }
+    .ws-footer .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: #7c3aed;
+    }
+    .ws-footer .score-box {
+      border: 1.5px solid #d1d5db;
+      border-radius: 6px;
+      padding: 4px 14px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* ── Print styles ── */
+    @media print {
+      body { background: #fff; }
+      .screen-toolbar { display: none; }
+      .page-wrapper { padding: 0; }
+      .ws-page {
+        width: 100%;
+        box-shadow: none;
+        padding: 40px 56px 56px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Screen toolbar (hidden on print) -->
+<div class="screen-toolbar">
+  <div class="logo">
+    <div class="logo-badge">T</div>
+    Tutoriq
+  </div>
+  <span style="color:#a5b4fc;font-size:13px;">ELA Reading Comprehension Worksheet</span>
+  <button class="btn-print" onclick="window.print()">⬇ Print / Save PDF</button>
+</div>
+
+<!-- Printable worksheet -->
+<div class="page-wrapper">
+  <div class="ws-page">
+
+    <!-- Header -->
+    <div class="ws-header">
+      <div class="ws-title-block">
+        <div class="ws-grade-badge">Grades 3–5 · ELA</div>
+        <h1 class="ws-main-title">Reading Comprehension &amp; Language Skills</h1>
+        <p class="ws-subtitle">Informational Text · Vocabulary · Writing Response</p>
+      </div>
+      <div class="ws-meta">
+        <label>Name: <span class="field-line"></span></label>
+        <label>Date: <span class="field-line"></span></label>
+        <label>Class: <span class="field-line"></span></label>
+      </div>
+    </div>
+
+    <!-- Reading Passage -->
+    <div class="passage-box">
+      <div class="passage-label">Read the passage carefully before answering the questions.</div>
+      <h2 class="passage-title">The Life of a Honeybee</h2>
+      <div class="passage-text">
+        <p>
+          Honeybees are remarkable insects that live and work together in large
+          communities called <em>colonies</em>. A single colony can hold up to
+          60,000 bees, all sharing one home called a <em>hive</em>. Inside the
+          hive, every bee has an important job to do.
+        </p>
+        <p>
+          The <strong>queen bee</strong> is the most important member of the
+          colony. Her only job is to lay eggs — she can lay up to 2,000 eggs in
+          a single day! Worker bees are all female. They build and repair the
+          honeycomb, care for young bees, guard the entrance to the hive, and
+          collect nectar from flowers. <strong>Drone bees</strong> are male and
+          have just one role: to mate with a new queen.
+        </p>
+        <p>
+          When a worker bee finds a field of flowers, she returns to the hive
+          and performs a special movement called the <em>waggle dance</em>. This
+          dance tells other bees exactly where the flowers are located and how
+          far away they are. Scientists study the waggle dance to understand how
+          animals communicate without words.
+        </p>
+        <p>
+          Honeybees are vital to our food supply. They <strong>pollinate</strong>
+          more than 80% of flowering plants, including fruits, vegetables, and
+          nuts. Without bees, many of the foods we eat every day would disappear.
+          Protecting bees means protecting our own food chain.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 1: Comprehension -->
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Reading Comprehension</div>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Q1 Multiple choice -->
+    <div class="question-block">
+      <p class="question-text"><span class="q-num">1.</span> What is the main idea of this passage?</p>
+      <ul class="mc-options">
+        <li><span class="mc-bubble"></span> Honeybees only make honey for humans to eat.</li>
+        <li><span class="mc-bubble"></span> Honeybees live and work together in organized colonies.</li>
+        <li><span class="mc-bubble"></span> Drone bees are the most important members of the hive.</li>
+        <li><span class="mc-bubble"></span> Flowers need rain to grow near beehives.</li>
+      </ul>
+    </div>
+
+    <!-- Q2 Multiple choice -->
+    <div class="question-block">
+      <p class="question-text"><span class="q-num">2.</span> According to the passage, what does the waggle dance communicate?</p>
+      <ul class="mc-options">
+        <li><span class="mc-bubble"></span> How much honey is stored in the hive.</li>
+        <li><span class="mc-bubble"></span> When the queen bee is about to lay eggs.</li>
+        <li><span class="mc-bubble"></span> Where flowers are and how far away they are.</li>
+        <li><span class="mc-bubble"></span> That the hive is in danger from predators.</li>
+      </ul>
+    </div>
+
+    <!-- Q3 Short answer -->
+    <div class="question-block">
+      <p class="question-text"><span class="q-num">3.</span> Name <strong>two jobs</strong> that worker bees perform inside the hive. Use details from the text.</p>
+      <div class="answer-lines">
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+      </div>
+    </div>
+
+    <!-- Q4 Short answer -->
+    <div class="question-block">
+      <p class="question-text"><span class="q-num">4.</span> Why does the author say that "protecting bees means protecting our own food chain"? Explain in your own words.</p>
+      <div class="answer-lines">
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+      </div>
+    </div>
+
+    <!-- Section 2: Vocabulary -->
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Vocabulary in Context</div>
+      <div class="section-divider"></div>
+    </div>
+
+    <table class="vocab-table">
+      <thead>
+        <tr>
+          <th style="width:18%">Word</th>
+          <th style="width:42%">Definition in your own words</th>
+          <th style="width:40%">Use the word in a new sentence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="vocab-word">colony</span></td>
+          <td><span class="vocab-def-line"></span></td>
+          <td><span class="vocab-def-line"></span></td>
+        </tr>
+        <tr>
+          <td><span class="vocab-word">pollinate</span></td>
+          <td><span class="vocab-def-line"></span></td>
+          <td><span class="vocab-def-line"></span></td>
+        </tr>
+        <tr>
+          <td><span class="vocab-word">remarkable</span></td>
+          <td><span class="vocab-def-line"></span></td>
+          <td><span class="vocab-def-line"></span></td>
+        </tr>
+        <tr>
+          <td><span class="vocab-word">vital</span></td>
+          <td><span class="vocab-def-line"></span></td>
+          <td><span class="vocab-def-line"></span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Section 3: Language Skills -->
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Language Skills</div>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-block">
+      <p class="question-text"><span class="q-num">5.</span> Circle the <strong>correct verb</strong> to complete each sentence.</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#374151;">
+        <li>a) The queen bee <u>&nbsp;&nbsp;lay / lays&nbsp;&nbsp;</u> thousands of eggs every day.</li>
+        <li>b) Worker bees <u>&nbsp;&nbsp;guard / guards&nbsp;&nbsp;</u> the entrance to the hive.</li>
+        <li>c) Scientists <u>&nbsp;&nbsp;study / studies&nbsp;&nbsp;</u> the waggle dance carefully.</li>
+      </ul>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-block">
+      <p class="question-text"><span class="q-num">6.</span> Rewrite the sentence below using a <strong>stronger, more precise</strong> verb to replace the underlined word.</p>
+      <p style="font-family:ui-sans-serif,system-ui,sans-serif;font-size:12.5px;color:#374151;margin:0 0 8px;padding:8px 12px;background:#f3f4f6;border-left:3px solid #7c3aed;border-radius:0 6px 6px 0;">
+        The bee <u>went</u> back to the hive after finding flowers.
+      </p>
+      <div class="answer-lines">
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+      </div>
+    </div>
+
+    <!-- Section 4: Writing -->
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Writing Response</div>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="writing-box">
+      <p class="writing-prompt">
+        <strong>Prompt:</strong> The passage explains that honeybees are important to our food supply.
+        Think about another animal or insect that you believe is important to nature or to people.
+        Write a paragraph explaining <em>why</em> that animal is important. Use at least
+        <strong>three supporting details</strong> in your response.
+      </p>
+      <div class="writing-lines">
+        <div class="writing-line"></div>
+        <div class="writing-line"></div>
+        <div class="writing-line"></div>
+        <div class="writing-line"></div>
+        <div class="writing-line"></div>
+        <div class="writing-line"></div>
+        <div class="writing-line"></div>
+        <div class="writing-line"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="ws-footer">
+      <div class="footer-brand">
+        <div style="width:18px;height:18px;border-radius:5px;background:linear-gradient(135deg,#7c3aed,#22d3ee);display:grid;place-items:center;font-size:10px;font-weight:800;color:#fff;">T</div>
+        Tutoriq · tutoriq.app
+      </div>
+      <span>ELA · Reading Comprehension · Grades 3–5</span>
+      <div class="score-box">Score: ______ / 20</div>
+    </div>
+
+  </div><!-- .ws-page -->
+</div><!-- .page-wrapper -->
+
+</body>
+</html>
