@@ -473,7 +473,7 @@ var WORDS = [
   { en:'resilient', ph:'/rɪˈzɪlɪənt/', pos:'adjective',
     def:'Able to recover quickly from difficulties; tough.',
     ex:'"Children are remarkably resilient after setbacks."',
-    fr:'érésilient', ar:'صامد' },
+    fr:'résilient', ar:'صامد' },
   { en:'meticulous', ph:'/mɪˈtɪkjələs/', pos:'adjective',
     def:'Showing great attention to detail or correct behaviour.',
     ex:'"She was meticulous in her research, checking every source twice."',
@@ -731,12 +731,15 @@ function setTimerMode(btn) {
   tDur = parseInt(btn.getAttribute('data-dur'),10)*60;
   resetTimer();
 }
-function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function formatTime(s) {
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
 function updUI() {
   var d = document.getElementById('timerDisplay');
-  d.textContent = fmt(tLeft); d.classList.toggle('running',tRunning);
-  document.title = tRunning ? fmt(tLeft)+' \u2013 Tutoriq' : 'Tutoriq \u2013 Daily Learning';
-  document.getElementById('timerArc').setAttribute('stroke-dashoffset', ARC*(1-tLeft/tDur));
+  d.textContent = formatTime(tLeft);
+  d.classList.toggle('running', tRunning);
+  document.title = tRunning ? formatTime(tLeft) + ' \u2013 Tutoriq' : 'Tutoriq \u2013 Daily Learning';
+  document.getElementById('timerArc').setAttribute('stroke-dashoffset', ARC * (1 - tLeft / tDur));
 }
 function toggleTimer() {
   if (tRunning) {
@@ -757,7 +760,13 @@ function toggleTimer() {
   }
   updUI();
 }
-function resetTimer(){clearInterval(tInterval);tRunning=false;tLeft=tDur;document.getElementById('timerStartBtn').textContent='\u25b6 Start';updUI();}
+function resetTimer() {
+  clearInterval(tInterval);
+  tRunning = false;
+  tLeft = tDur;
+  document.getElementById('timerStartBtn').textContent = '\u25b6 Start';
+  updUI();
+}
 function updDots(){
   for(var i=0;i<4;i++) document.getElementById('dot'+i).classList.toggle('done',i<tSessions);
   document.getElementById('sessionLabel').textContent=tSessions<4?'Session '+(tSessions+1)+' of 4':'\ud83c\udf89 Great work! Take a long break.';
