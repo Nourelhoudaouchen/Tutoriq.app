@@ -1,14 +1,13 @@
 <!doctype html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tutoriq – Multilingual Voice‑First AI Tutor</title>
-  <meta name="description" content="Tutoriq is a multilingual, voice‑first AI tutor for adult learners. Speak naturally, get instant examples, and retain more with spaced review." />
+  <title>Tutoriq &#8211; Daily Multilingual Learning Tools</title>
+  <meta name="description" content="Free daily vocabulary, practice quizzes, and a focus timer. Tutoriq is an open-source multilingual learning companion for adult learners." />
   <link rel="canonical" href="https://tutoriq.app/" />
-  <meta property="og:title" content="Tutoriq – Multilingual Voice‑First AI Tutor" />
-  <meta property="og:description" content="Speak naturally with your AI tutor. Arabic · French · English. Quizzes + spaced repetition for long‑term retention." />
+  <meta property="og:title" content="Tutoriq &#8211; Daily Multilingual Learning Tools" />
+  <meta property="og:description" content="Free daily vocabulary, quizzes, and a Pomodoro timer. Arabic &middot; French &middot; English. Open source and built for learners." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tutoriq.app/" />
   <meta property="og:image" content="https://tutoriq.app/og.png" />
@@ -17,186 +16,768 @@
     :root {
       --bg: #0b1220;
       --card: #0f172a;
+      --card-hover: #141e35;
       --muted: #94a3b8;
       --text: #e5e7eb;
-      --brand: #7c3aed; /* violet */
-      --brand-2: #22d3ee; /* cyan */
-      --accent: #38bdf8; /* light blue */
+      --brand: #7c3aed;
+      --brand-2: #22d3ee;
+      --green: #22c55e;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
-      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text); background: radial-gradient(1200px 600px at 80% -10%, rgba(34,211,238,.15), transparent),
-               radial-gradient(800px 400px at 10% -10%, rgba(124,58,237,.18), transparent), var(--bg);
-      line-height: 1.5;
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(34,211,238,.13), transparent),
+                  radial-gradient(800px 400px at 10% -10%, rgba(124,58,237,.16), transparent),
+                  var(--bg);
+      line-height: 1.6;
     }
     a { color: inherit; text-decoration: none; }
-    .container { max-width: 1080px; margin: 0 auto; padding: 28px 20px 80px; }
-    .tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; font-size: 12px; color: var(--muted); background: rgba(255,255,255,.03); }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0 30px; }
-    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
-    .logo-badge { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); font-weight: 800; }
-    .nav a { color: var(--muted); margin-left: 16px; font-size: 14px; }.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: center; padding: 20px 0 10px; }
-@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }
-.h1 { font-size: clamp(32px, 4vw, 56px); line-height: 1.05; margin: 10px 0 14px; font-weight: 800; letter-spacing: -0.5px; }
-.muted { color: var(--muted); }
-.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
-.btn {
-  display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; font-weight: 600;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2)); border: none; color: white; cursor: pointer;
-  box-shadow: 0 10px 24px rgba(124,58,237,.25), 0 8px 18px rgba(34,211,238,.12);
-}
-.btn-secondary { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid rgba(255,255,255,.12); }
-.hero-card {
-  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-  border: 1px solid rgba(255,255,255,.10); border-radius: 16px; padding: 18px; box-shadow: 0 8px 30px rgba(0,0,0,.25);
-}
-.screen {
-  border-radius: 12px; background: #0b1020; border: 1px solid rgba(255,255,255,.08); padding: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px;
-}
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
-@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-.card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 18px; }
-.card h3 { margin: 8px 0 6px; font-size: 18px; }
-.badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: rgba(124,58,237,.15); color: #e9d5ff; font-size: 12px; }
-.section { margin-top: 64px; }
-.pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-@media (max-width: 900px) { .pricing { grid-template-columns: 1fr; } }
-.price { border: 1px solid rgba(255,255,255,.08); border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); padding: 22px; }
-.price h4 { margin: 8px 0 6px; font-size: 18px; }
-.price .big { font-size: 34px; font-weight: 800; }
-.list { margin: 10px 0 0; padding: 0; list-style: none; }
-.list li { margin: 8px 0; display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; }
-.ok { margin-top: 2px; }
-footer { margin-top: 60px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center; color: var(--muted); border-top: 1px solid rgba(255,255,255,.08); padding-top: 16px; }
-.small { font-size: 12px; }
-.langs { display: inline-flex; gap: 8px; flex-wrap: wrap; }
-.langs span { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); padding: 6px 10px; border-radius: 999px; font-size: 12px; color: #d1d5db; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 24px 20px 80px; }
 
+    /* Header */
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0 28px; border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 10px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; }
+    .logo-badge { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); font-weight: 800; font-size: 13px; }
+    .nav { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+    .nav a { color: var(--muted); padding: 6px 10px; font-size: 14px; border-radius: 8px; transition: color .15s, background .15s; }
+    .nav a:hover { color: var(--text); background: rgba(255,255,255,.06); }
+    .nav .gh-link { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,.14); padding: 6px 12px; border-radius: 8px; font-size: 13px; color: var(--text); background: rgba(255,255,255,.04); transition: background .15s; }
+    .nav .gh-link:hover { background: rgba(255,255,255,.1); }
+
+    /* Streak */
+    .streak-banner { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: rgba(124,58,237,.12); border: 1px solid rgba(124,58,237,.3); border-radius: 12px; padding: 12px 18px; margin: 16px 0 28px; font-size: 14px; }
+    .streak-fire { font-size: 22px; }
+    .streak-text strong { color: #c4b5fd; }
+    .streak-text span { color: var(--muted); font-size: 13px; margin-left: 6px; }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; align-items: center; padding: 10px 0 6px; }
+    @media (max-width: 820px) { .hero { grid-template-columns: 1fr; } }
+    .tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; font-size: 12px; color: var(--muted); background: rgba(255,255,255,.03); }
+    .h1 { font-size: clamp(30px, 4vw, 52px); line-height: 1.08; margin: 10px 0 14px; font-weight: 800; letter-spacing: -0.5px; }
+    .muted { color: var(--muted); }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 11px; font-weight: 600; font-size: 14px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); border: none; color: white; cursor: pointer; box-shadow: 0 8px 24px rgba(124,58,237,.28); transition: opacity .15s, transform .1s; }
+    .btn:hover { opacity: .9; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn-secondary { background: rgba(255,255,255,.07); color: var(--text); border: 1px solid rgba(255,255,255,.13); box-shadow: none; }
+    .btn-secondary:hover { background: rgba(255,255,255,.12); }
+    .langs { display: inline-flex; gap: 7px; flex-wrap: wrap; margin-top: 6px; }
+    .langs span { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); padding: 5px 10px; border-radius: 999px; font-size: 12px; color: #d1d5db; }
+    .hero-card { background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018)); border: 1px solid rgba(255,255,255,.10); border-radius: 18px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.28); }
+    .screen { border-radius: 12px; background: #080e1c; border: 1px solid rgba(255,255,255,.08); padding: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.65; overflow-x: auto; }
+    .screen pre { margin: 0; }
+
+    /* Sections */
+    .section { margin-top: 64px; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px; background: rgba(124,58,237,.15); color: #e9d5ff; font-size: 12px; font-weight: 600; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
+    @media (max-width: 820px) { .grid-3 { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 20px; transition: border-color .2s, background .2s; }
+    .card:hover { border-color: rgba(255,255,255,.14); background: var(--card-hover); }
+    .card h3 { margin: 8px 0 6px; font-size: 17px; }
+    .card-icon { font-size: 26px; margin-bottom: 4px; }
+    .section-title { margin: 10px 0 4px; font-size: clamp(20px, 2.5vw, 28px); font-weight: 700; }
+    .small { font-size: 12px; }
+
+    /* Daily Word */
+    .word-card { background: linear-gradient(135deg, rgba(124,58,237,.15), rgba(34,211,238,.08)); border: 1px solid rgba(124,58,237,.35); border-radius: 20px; padding: 28px 24px; }
+    .word-en { font-size: 32px; font-weight: 800; letter-spacing: -.5px; }
+    .word-phonetic { color: var(--muted); font-size: 14px; margin: 4px 0 10px; font-style: italic; }
+    .word-pos { display: inline-block; background: rgba(124,58,237,.25); color: #c4b5fd; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-bottom: 14px; }
+    .word-def { font-size: 16px; line-height: 1.6; margin-bottom: 14px; }
+    .word-example { color: var(--muted); font-style: italic; font-size: 14px; border-left: 3px solid rgba(124,58,237,.4); padding-left: 12px; margin-bottom: 18px; }
+    .word-translations { display: flex; gap: 14px; flex-wrap: wrap; }
+    .word-trans-item { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 10px 14px; flex: 1; min-width: 100px; }
+    .word-trans-item .lang { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .word-trans-item .trans { font-size: 16px; font-weight: 600; margin-top: 3px; }
+    .word-nav { display: flex; gap: 10px; margin-top: 20px; align-items: center; flex-wrap: wrap; }
+    .word-counter { color: var(--muted); font-size: 13px; }
+
+    /* Quiz */
+    .quiz-card { background: var(--card); border: 1px solid rgba(255,255,255,.09); border-radius: 20px; padding: 26px; }
+    .quiz-meta { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+    .quiz-cat { font-size: 12px; background: rgba(34,211,238,.12); color: #67e8f9; padding: 4px 10px; border-radius: 999px; font-weight: 600; }
+    .quiz-q-num { font-size: 12px; color: var(--muted); }
+    .quiz-q { font-size: 17px; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
+    .quiz-options { display: grid; gap: 10px; }
+    .quiz-opt { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 13px 16px; cursor: pointer; font-size: 15px; text-align: left; color: var(--text); transition: background .15s, border-color .15s; width: 100%; }
+    .quiz-opt:hover:not(:disabled) { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); }
+    .quiz-opt.correct { background: rgba(34,197,94,.18); border-color: rgba(34,197,94,.5); color: #86efac; }
+    .quiz-opt.wrong { background: rgba(248,113,113,.15); border-color: rgba(248,113,113,.4); color: #fca5a5; }
+    .quiz-opt:disabled { cursor: default; }
+    .quiz-explain { margin-top: 14px; padding: 14px; background: rgba(255,255,255,.04); border-radius: 12px; font-size: 14px; color: var(--muted); border: 1px solid rgba(255,255,255,.08); }
+    .quiz-score-bar { background: rgba(255,255,255,.06); border-radius: 999px; height: 6px; margin: 14px 0 8px; overflow: hidden; }
+    .quiz-score-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--brand), var(--brand-2)); transition: width .4s; }
+    .quiz-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+    /* Timer */
+    .timer-card { background: var(--card); border: 1px solid rgba(255,255,255,.09); border-radius: 20px; padding: 28px; text-align: center; }
+    .timer-modes { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .timer-mode-btn { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); color: var(--muted); border-radius: 999px; padding: 7px 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; }
+    .timer-mode-btn.active { background: rgba(124,58,237,.25); border-color: rgba(124,58,237,.5); color: #c4b5fd; }
+    .timer-ring { width: 180px; height: 180px; margin: 0 auto 24px; position: relative; display: flex; align-items: center; justify-content: center; }
+    .timer-ring svg { position: absolute; top: 0; left: 0; transform: rotate(-90deg); }
+    .timer-ring-display { font-size: 36px; font-weight: 800; font-variant-numeric: tabular-nums; z-index: 1; }
+    .timer-ring-display.running { color: #22d3ee; }
+    .timer-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .timer-sessions { margin-top: 18px; color: var(--muted); font-size: 13px; }
+    .timer-dots { display: flex; gap: 6px; justify-content: center; margin-top: 8px; }
+    .timer-dot { width: 10px; height: 10px; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); transition: background .3s; }
+    .timer-dot.done { background: var(--brand); border-color: var(--brand); }
+
+    /* Pricing */
+    .pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
+    @media (max-width: 820px) { .pricing { grid-template-columns: 1fr; } }
+    .price { border: 1px solid rgba(255,255,255,.09); border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); padding: 24px; }
+    .price.featured { border-color: rgba(124,58,237,.55); background: linear-gradient(180deg, rgba(124,58,237,.1), rgba(124,58,237,.03)); }
+    .price h4 { margin: 8px 0 6px; font-size: 18px; font-weight: 700; }
+    .price .big { font-size: 34px; font-weight: 800; }
+    .price-badge { background: rgba(124,58,237,.25); color: #c4b5fd; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-left: 8px; vertical-align: middle; }
+    .list { margin: 14px 0 0; padding: 0; list-style: none; }
+    .list li { margin: 9px 0; display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+    .ok { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,.07); }
+    .faq-q { width: 100%; text-align: left; background: none; border: none; color: var(--text); font-size: 15px; font-weight: 600; padding: 16px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .faq-q:hover { color: #c4b5fd; }
+    .faq-chevron { color: var(--muted); transition: transform .2s; flex-shrink: 0; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-item.open .faq-a { max-height: 200px; }
+    .faq-a p { margin: 0 0 16px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+    /* GitHub CTA */
+    .github-cta { background: linear-gradient(135deg, rgba(124,58,237,.1), rgba(34,211,238,.06)); border: 1px solid rgba(124,58,237,.3); border-radius: 20px; padding: 36px 28px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; margin-top: 64px; }
+    .github-cta-text { flex: 1; min-width: 200px; }
+    .github-cta-text h2 { margin: 0 0 8px; font-size: 22px; font-weight: 700; }
+    .github-cta-text p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* Footer */
+    footer { margin-top: 48px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; color: var(--muted); border-top: 1px solid rgba(255,255,255,.07); padding-top: 18px; font-size: 13px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <a class="logo" href="#">
-        <span class="logo-badge">TQ</span>
-        <span>Tutoriq</span>
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <a class="logo" href="#">
+      <span class="logo-badge">TQ</span>
+      <span>Tutoriq</span>
+    </a>
+    <nav class="nav">
+      <a href="#daily">Daily</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#timer">Timer</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://github.com/Nourelhoudaouchen/Tutoriq.app" target="_blank" rel="noopener" class="gh-link">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        Open Source
       </a>
-      <nav class="nav">
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-    </header><div class="hero">
-  <div>
-    <span class="tag">Multilingual • Voice‑first • Adult learners</span>
-    <h1 class="h1">Speak with your AI tutor.<br/>Learn faster, remember longer.</h1>
-    <p class="muted">Tutoriq lets you learn by talking—then cements knowledge with short quizzes and spaced review. Arabic • French • English.</p>
-    <div class="langs" aria-label="Supported languages">
-      <span>Arabic</span><span>French</span><span>English</span>
+    </nav>
+  </header>
+
+  <!-- Streak Banner -->
+  <div class="streak-banner" id="streakBanner" aria-live="polite">
+    <span class="streak-fire">&#128293;</span>
+    <div class="streak-text">
+      <strong id="streakCount">0-day streak</strong>
+      <span id="streakMsg">Visit daily to keep your streak!</span>
     </div>
-    <div class="cta">
-      <a class="btn" href="https://tally.so/r/your-form-id" target="_blank" rel="noopener">Join the waitlist</a>
-      <a class="btn btn-secondary" href="#features">See how it works</a>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <span class="tag">Free tools &middot; No signup required &middot; Open source</span>
+      <h1 class="h1">Learn something new<br/>every single day.</h1>
+      <p class="muted">Tutoriq gives you a daily vocabulary word in three languages, practice quizzes, and a Pomodoro study timer&mdash;all free, no account needed. When you're ready for an AI tutor, we'll be there.</p>
+      <div class="langs" aria-label="Supported languages">
+        <span>&#127468;&#127463; English</span><span>&#127467;&#127479; French</span><span>&#127480;&#127462; Arabic</span>
+      </div>
+      <div class="cta">
+        <a class="btn" href="#daily">Today's word</a>
+        <a class="btn btn-secondary" href="#quiz">Take a quiz</a>
+      </div>
+      <p class="small muted" style="margin-top:12px">100% free &middot; No account needed &middot; Open source on GitHub</p>
     </div>
-    <p class="small muted" style="margin-top:10px">For adults 18+ • Built with privacy in mind • Cancel anytime</p>
+    <div class="hero-card">
+      <div class="screen" aria-label="Conversation preview with AI tutor">
+<pre><span style="color:#67e8f9">&gt;</span> How do I prep for IELTS Speaking Task 2?
+
+<span style="color:#c4b5fd">Tutor:</span> Let's simulate a Task 2 cue card. I'll time you, then we'll work on fluency and lexical resource.
+
+<span style="color:#67e8f9">&gt;</span> Great &mdash; start!
+
+<span style="color:#c4b5fd">Tutor:</span> Topic: <em>"Describe a memorable journey."</em>
+1 min to prepare&hellip; go!
+
+<span style="color:#94a3b8">After speaking:</span>
+<span style="color:#c4b5fd">Tutor:</span> Fluency 6.0 &mdash; good pace.
+Vocab tip: <span style="color:#22d3ee">remarkable &middot; breathtaking</span></pre>
+      </div>
+      <p class="small muted" style="margin-top:12px;text-align:center">AI-powered tutoring &mdash; coming soon</p>
+    </div>
   </div>
-  <div class="hero-card">
-    <div class="screen" aria-label="Conversation preview">
 
-<pre><code>&gt; How do I prep for IELTS Speaking Task 2?
+  <!-- Daily Word -->
+  <section id="daily" class="section">
+    <span class="badge">&#128214; Daily vocabulary</span>
+    <h2 class="section-title">Word of the Day</h2>
+    <p class="muted">A new word every day across three languages. Build your vocabulary one word at a time.</p>
+    <div style="margin-top:20px">
+      <div class="word-card" id="wordCard">
+        <div class="word-en" id="wordEn"></div>
+        <div class="word-phonetic" id="wordPhonetic"></div>
+        <div><span class="word-pos" id="wordPos"></span></div>
+        <div class="word-def" id="wordDef"></div>
+        <div class="word-example" id="wordExample"></div>
+        <div class="word-translations" id="wordTranslations"></div>
+        <div class="word-nav">
+          <button class="btn btn-secondary" onclick="changeWord(-1)" style="padding:8px 14px;font-size:13px">&#8592; Previous</button>
+          <button class="btn btn-secondary" onclick="changeWord(1)" style="padding:8px 14px;font-size:13px">Next &#8594;</button>
+          <span class="word-counter" id="wordCounter"></span>
+          <button class="btn" onclick="markWordLearned()" style="padding:8px 14px;font-size:13px;margin-left:auto" id="learnedBtn">&#10003; Mark learned</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-Tutor: Let’s simulate a Task 2 cue card. I’ll time you, then we’ll improve your fluency and lexical resource.
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <span class="badge">&#127919; Practice quiz</span>
+    <h2 class="section-title">Test your knowledge</h2>
+    <p class="muted">Vocabulary, grammar, and language concepts &mdash; pick an answer and get instant feedback.</p>
+    <div style="margin-top:20px">
+      <div class="quiz-card">
+        <div class="quiz-meta">
+          <span class="quiz-cat" id="quizCat"></span>
+          <span class="quiz-q-num" id="quizNum"></span>
+          <span class="quiz-q-num" id="quizScore" style="margin-left:auto"></span>
+        </div>
+        <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizFill" style="width:0"></div></div>
+        <div class="quiz-q" id="quizQ"></div>
+        <div class="quiz-options" id="quizOpts"></div>
+        <div class="quiz-explain" id="quizExplain" style="display:none"></div>
+        <div class="quiz-actions" id="quizActions"></div>
+      </div>
+    </div>
+  </section>
 
-&gt; Great — start!
+  <!-- Pomodoro Timer -->
+  <section id="timer" class="section">
+    <span class="badge">&#9201; Focus timer</span>
+    <h2 class="section-title">Study with Pomodoro</h2>
+    <p class="muted">25 minutes of deep focus, then a 5-minute break. Four sessions earns a long rest.</p>
+    <div style="margin-top:20px">
+      <div class="timer-card">
+        <div class="timer-modes">
+          <button class="timer-mode-btn active" data-dur="25" data-label="Focus" onclick="setTimerMode(this)">Focus &middot; 25 min</button>
+          <button class="timer-mode-btn" data-dur="5" data-label="Break" onclick="setTimerMode(this)">Short break &middot; 5 min</button>
+          <button class="timer-mode-btn" data-dur="15" data-label="Long break" onclick="setTimerMode(this)">Long break &middot; 15 min</button>
+        </div>
+        <div class="timer-ring" aria-label="Timer">
+          <svg width="180" height="180" viewBox="0 0 180 180">
+            <circle cx="90" cy="90" r="82" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="8"/>
+            <circle id="timerArc" cx="90" cy="90" r="82" fill="none" stroke="url(#tg)" stroke-width="8" stroke-linecap="round"
+              stroke-dasharray="515" stroke-dashoffset="0" style="transition:stroke-dashoffset .8s linear"/>
+            <defs>
+              <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#7c3aed"/>
+                <stop offset="100%" stop-color="#22d3ee"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="timer-ring-display" id="timerDisplay">25:00</div>
+        </div>
+        <div class="timer-controls">
+          <button class="btn" id="timerStartBtn" onclick="toggleTimer()">&#9654; Start</button>
+          <button class="btn btn-secondary" onclick="resetTimer()">&#8635; Reset</button>
+        </div>
+        <div class="timer-sessions">
+          <div id="sessionLabel">Session 1 of 4</div>
+          <div class="timer-dots">
+            <div class="timer-dot" id="dot0"></div>
+            <div class="timer-dot" id="dot1"></div>
+            <div class="timer-dot" id="dot2"></div>
+            <div class="timer-dot" id="dot3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-Tutor: Topic: “Describe a memorable journey.” You have 1 minute to prepare… Now speak for up to 2 minutes.
+  <!-- Features -->
+  <section id="features" class="section">
+    <span class="badge">&#10024; Features</span>
+    <h2 class="section-title">Built for daily learners</h2>
+    <p class="muted">Everything you need to make progress every day, with an AI tutor coming soon.</p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">&#128172;</div>
+        <h3>Voice-first AI tutor</h3>
+        <p class="muted">Practice speaking naturally. Get instant feedback on fluency, vocabulary, and pronunciation.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#129504;</div>
+        <h3>Spaced repetition</h3>
+        <p class="muted">Quizzes scheduled at optimal intervals so knowledge moves to long-term memory.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#127758;</div>
+        <h3>Three languages</h3>
+        <p class="muted">Arabic, French, and English &mdash; see vocabulary in context across all three at once.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128197;</div>
+        <h3>Daily streaks</h3>
+        <p class="muted">Build a habit with a daily learning streak tracked right in your browser.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9201;</div>
+        <h3>Pomodoro timer</h3>
+        <p class="muted">Structured focus sessions to maximise productivity and avoid burnout.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128275;</div>
+        <h3>Free &amp; open source</h3>
+        <p class="muted">Core tools are free forever. The code is open &mdash; contribute on GitHub.</p>
+      </div>
+    </div>
+  </section>
 
-(After) Tutor: Feedback — Fluency 6.0: good pace, a few pauses. Vocabulary: nice range; avoid “very”. Try: “remarkable, exhausting, breathtaking.”</code></pre></div>
+  <!-- Pricing -->
+  <section id="pricing" class="section">
+    <span class="badge">&#128179; Pricing</span>
+    <h2 class="section-title">Simple plans</h2>
+    <p class="muted">Daily tools are always free. Upgrade for AI-powered tutoring when it launches.</p>
+    <div class="pricing">
+      <div class="price">
+        <h4>Free</h4>
+        <div class="big">$0<span class="muted" style="font-size:16px">/mo</span></div>
+        <ul class="list">
+          <li><span class="ok">&#10003;</span><span>Daily word of the day</span></li>
+          <li><span class="ok">&#10003;</span><span>Unlimited practice quizzes</span></li>
+          <li><span class="ok">&#10003;</span><span>Pomodoro study timer</span></li>
+          <li><span class="ok">&#10003;</span><span>Streak tracking</span></li>
+        </ul>
+        <div style="margin-top:16px"><a class="btn" href="#daily" style="width:100%;justify-content:center;display:flex">Start free</a></div>
+      </div>
+      <div class="price featured">
+        <h4>Pro <span class="price-badge">Coming soon</span></h4>
+        <div class="big">$9<span class="muted" style="font-size:16px">/mo</span></div>
+        <ul class="list">
+          <li><span class="ok">&#10003;</span><span>60 min AI voice tutoring</span></li>
+          <li><span class="ok">&#10003;</span><span>Personalised spaced review</span></li>
+          <li><span class="ok">&#10003;</span><span>IELTS / DELF practice mode</span></li>
+          <li><span class="ok">&#10003;</span><span>Everything in Free</span></li>
+        </ul>
+        <div style="margin-top:16px"><a class="btn" href="https://github.com/Nourelhoudaouchen/Tutoriq.app/issues" target="_blank" rel="noopener" style="width:100%;justify-content:center;display:flex">Join waitlist</a></div>
+      </div>
+      <div class="price">
+        <h4>Team <span class="price-badge">Coming soon</span></h4>
+        <div class="big">Custom</div>
+        <ul class="list">
+          <li><span class="ok">&#10003;</span><span>Seats for schools / bootcamps</span></li>
+          <li><span class="ok">&#10003;</span><span>Admin progress dashboard</span></li>
+          <li><span class="ok">&#10003;</span><span>SLA &amp; onboarding</span></li>
+          <li><span class="ok">&#10003;</span><span>Everything in Pro</span></li>
+        </ul>
+        <div style="margin-top:16px"><a class="btn btn-secondary" href="mailto:hello@tutoriq.app" style="width:100%;justify-content:center;display:flex">Contact us</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <span class="badge">&#10067; FAQ</span>
+    <h2 class="section-title">Common questions</h2>
+    <div style="margin-top:20px; max-width:720px">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do I need to create an account?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><p>No account is needed to use the daily vocabulary, quizzes, and Pomodoro timer. Your streak and progress are stored locally in your browser.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What languages are supported?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><p>Arabic, French, and English at launch. We plan to add Spanish, German, and more &mdash; contributions welcome on GitHub!</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Who is Tutoriq for?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><p>Adult learners (18+) preparing for exams like IELTS or DELF, language enthusiasts, and anyone who wants a daily learning habit.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I contribute?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><p>Open a pull request on GitHub! You can add vocabulary words, quiz questions, translations, or UI improvements. Check CONTRIBUTING.md for guidelines.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">When will AI tutoring be available?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="faq-a"><p>We're actively developing AI voice tutoring. Join the waitlist by opening an issue on GitHub or emailing hello@tutoriq.app to be notified first.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub CTA -->
+  <div class="github-cta">
+    <div class="github-cta-text">
+      <h2>This project is open source &#127881;</h2>
+      <p>Add vocabulary words, quiz questions, new languages, or UI improvements. Every contribution helps learners around the world.</p>
+    </div>
+    <a class="btn" href="https://github.com/Nourelhoudaouchen/Tutoriq.app" target="_blank" rel="noopener" style="flex-shrink:0">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      Contribute on GitHub
+    </a>
   </div>
+
+  <!-- Footer -->
+  <footer>
+    <div>&#169; <span id="y"></span> Tutoriq. Open source under MIT licence.</div>
+    <div>
+      <a href="mailto:hello@tutoriq.app">hello@tutoriq.app</a> &middot;
+      <a href="https://github.com/Nourelhoudaouchen/Tutoriq.app" target="_blank" rel="noopener">GitHub</a> &middot;
+      <a href="https://github.com/Nourelhoudaouchen/Tutoriq.app/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute</a>
+    </div>
+  </footer>
+
 </div>
 
-<section id="features" class="section">
-  <span class="badge">How it helps</span>
-  <h2 style="margin:10px 0 4px">Your personal voice tutor</h2>
-  <p class="muted">Practice by speaking naturally. Tutoriq answers in real time, then reinforces learning with retrieval practice and spaced repetition.</p>
-  <div class="grid" style="margin-top:18px">
-    <div class="card">
-      <h3>Natural conversations</h3>
-      <p class="muted">Ask follow‑ups, get examples and analogies tailored to your level. Learn like you’re talking to a real tutor.</p>
-    </div>
-    <div class="card">
-      <h3>Quizzes that stick</h3>
-      <p class="muted">Short, targeted questions right after each lesson, then spaced review so knowledge actually sticks.</p>
-    </div>
-    <div class="card">
-      <h3>Made for adults</h3>
-      <p class="muted">Tutoriq is designed for learners 18+. Transparent AI disclosures and exportable transcripts.</p>
-    </div>
-  </div>
-</section>
+<script>
+'use strict';
 
-<section id="pricing" class="section">
-  <span class="badge">Early pricing</span>
-  <h2 style="margin:10px 0 4px">Simple plans as you grow</h2>
-  <div class="pricing">
-    <div class="price">
-      <h4>Starter</h4>
-      <div class="big">$9<span class="muted" style="font-size:16px">/mo</span></div>
-      <ul class="list">
-        <li><span class="ok">✔</span><span>60 min voice tutoring</span></li>
-        <li><span class="ok">✔</span><span>Unlimited quizzes</span></li>
-        <li><span class="ok">✔</span><span>Spaced review</span></li>
-      </ul>
-    </div>
-    <div class="price" style="border-color: rgba(124,58,237,.6)">
-      <h4>Pro</h4>
-      <div class="big">$29<span class="muted" style="font-size:16px">/mo</span></div>
-      <ul class="list">
-        <li><span class="ok">✔</span><span>300 min voice tutoring</span></li>
-        <li><span class="ok">✔</span><span>Upload PDFs → quizzes</span></li>
-        <li><span class="ok">✔</span><span>Priority support</span></li>
-      </ul>
-    </div>
-    <div class="price">
-      <h4>Team</h4>
-      <div class="big">Custom</div>
-      <ul class="list">
-        <li><span class="ok">✔</span><span>Seats for schools/bootcamps</span></li>
-        <li><span class="ok">✔</span><span>Admin dashboard</span></li>
-        <li><span class="ok">✔</span><span>SLA & onboarding</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
+var WORDS = [
+  { en:'perseverance', ph:'/pəˌsɪˈvɪərəns/', pos:'noun',
+    def:'Continued effort to do or achieve something despite difficulty or failure.',
+    ex:'"Her perseverance through years of study finally paid off."',
+    fr:'persévérance', ar:'المثابرة' },
+  { en:'eloquent', ph:'/ˈɛləkwənt/', pos:'adjective',
+    def:'Fluent and persuasive in speaking or writing.',
+    ex:'"The senator gave an eloquent speech that moved the entire audience."',
+    fr:'éloquent', ar:'بليغ' },
+  { en:'ambiguous', ph:'/æmˈbɪgjuəs/', pos:'adjective',
+    def:'Open to more than one interpretation; not having one obvious meaning.',
+    ex:'"The instructions were ambiguous, so everyone understood them differently."',
+    fr:'ambigu', ar:'غامض' },
+  { en:'innovative', ph:'/ˈɪnəveɪtɪv/', pos:'adjective',
+    def:'Featuring new methods or ideas; original and creative.',
+    ex:'"Their innovative approach to teaching transformed the school."',
+    fr:'innovant', ar:'مبتكر' },
+  { en:'pragmatic', ph:'/præɡˈmætɪk/', pos:'adjective',
+    def:'Dealing with things sensibly and realistically, not just theoretically.',
+    ex:'"We need a pragmatic solution, not an idealistic one."',
+    fr:'pragmatique', ar:'براغماتي' },
+  { en:'resilient', ph:'/rɪˈzɪlɪənt/', pos:'adjective',
+    def:'Able to recover quickly from difficulties; tough.',
+    ex:'"Children are remarkably resilient after setbacks."',
+    fr:'érésilient', ar:'صامد' },
+  { en:'meticulous', ph:'/mɪˈtɪkjələs/', pos:'adjective',
+    def:'Showing great attention to detail or correct behaviour.',
+    ex:'"She was meticulous in her research, checking every source twice."',
+    fr:'méticuleux', ar:'دقيق جداً' },
+  { en:'candid', ph:'/ˈkændɪd/', pos:'adjective',
+    def:'Truthful and straightforward; frank.',
+    ex:'"I appreciated his candid feedback on my essay."',
+    fr:'franc', ar:'صريح' },
+  { en:'diligent', ph:'/ˈdɪlɪdʒənt/', pos:'adjective',
+    def:'Having or showing care and conscientiousness in one\'s work.',
+    ex:'"A diligent student reviews notes every evening."',
+    fr:'diligent', ar:'مجتهد' },
+  { en:'profound', ph:'/prəˈfaʊnd/', pos:'adjective',
+    def:'Very great or intense; having deep meaning.',
+    ex:'"Reading that book had a profound effect on her worldview."',
+    fr:'profond', ar:'عميق' },
+  { en:'coherent', ph:'/kəʊˈhɪərənt/', pos:'adjective',
+    def:'Logical and consistent; forming a unified whole.',
+    ex:'"Please write a coherent argument with evidence and examples."',
+    fr:'cohérent', ar:'متماسك' },
+  { en:'nuance', ph:'/ˈnjuːɑːns/', pos:'noun',
+    def:'A subtle difference in meaning, expression, or sound.',
+    ex:'"She understood every nuance of the Arabic dialect."',
+    fr:'nuance', ar:'دقة / فروق دقيقة' },
+  { en:'converge', ph:'/kənˈvɜːdʒ/', pos:'verb',
+    def:'To come together from different directions to meet at a point.',
+    ex:'"The two rivers converge just south of the city."',
+    fr:'converger', ar:'يتقارب' },
+  { en:'euphemism', ph:'/ˈjuːfəmɪzəm/', pos:'noun',
+    def:'A mild or indirect word used instead of one that might seem harsh.',
+    ex:'"Passed away" is a common euphemism for "died".',
+    fr:'euphémisme', ar:'تلطيف اللفظ' },
+  { en:'concise', ph:'/kənˈsaɪs/', pos:'adjective',
+    def:'Giving a lot of information clearly and in few words.',
+    ex:'"A concise essay covers the topic without unnecessary padding."',
+    fr:'concis', ar:'موجز' },
+  { en:'alleviate', ph:'/əˈliːvieɪt/', pos:'verb',
+    def:'To make something bad less severe.',
+    ex:'"Rest and fluids can alleviate cold symptoms."',
+    fr:'alléger', ar:'يُخفف' },
+  { en:'versatile', ph:'/ˈvɜːsətaɪl/', pos:'adjective',
+    def:'Able to adapt to many different functions or activities.',
+    ex:'"A versatile learner picks up new skills quickly."',
+    fr:'polyvalent', ar:'متعدد المواهب' },
+  { en:'inquisitive', ph:'/ɪnˈkwɪzɪtɪv/', pos:'adjective',
+    def:'Having or showing an interest in learning things; curious.',
+    ex:'"An inquisitive mind asks questions others never think of."',
+    fr:'curieux', ar:'فضولي' },
+  { en:'plausible', ph:'/ˈplɔːzɪbəl/', pos:'adjective',
+    def:'Seeming reasonable or probable.',
+    ex:'"That\'s a plausible explanation for the delay."',
+    fr:'plausible', ar:'معقول' },
+  { en:'brevity', ph:'/ˈbrɛvɪti/', pos:'noun',
+    def:'Concise and exact use of words in writing or speech.',
+    ex:'"Good writing is defined by clarity and brevity."',
+    fr:'brièveté', ar:'إيجاز' },
+  { en:'mitigate', ph:'/ˈmɪtɪɡeɪt/', pos:'verb',
+    def:'To make less severe, serious, or painful.',
+    ex:'"Planting trees helps mitigate climate change."',
+    fr:'atténuer', ar:'يُخفف' },
+  { en:'empathy', ph:'/ˈɛmpəθi/', pos:'noun',
+    def:'The ability to understand and share the feelings of another.',
+    ex:'"A good teacher shows empathy toward struggling students."',
+    fr:'empathie', ar:'تعاطف' },
+  { en:'integrity', ph:'/ɪnˈtɛɡrɪti/', pos:'noun',
+    def:'The quality of being honest and having strong moral principles.',
+    ex:'"She was admired for her integrity in business."',
+    fr:'intégrité', ar:'نزاهة' },
+  { en:'ambivalent', ph:'/æmˈbɪvələnt/', pos:'adjective',
+    def:'Having mixed feelings or contradictory ideas about something.',
+    ex:'"He felt ambivalent about moving abroad for work."',
+    fr:'ambivalent', ar:'متردد' },
+  { en:'scrutinise', ph:'/ˈskruːtɪnaɪz/', pos:'verb',
+    def:'To examine or inspect closely and thoroughly.',
+    ex:'"The editor scrutinised every line before publication."',
+    fr:'scruter', ar:'يُمحّص' },
+  { en:'eloquence', ph:'/ˈɛləkwəns/', pos:'noun',
+    def:'Fluent, persuasive, and effective expression in speaking or writing.',
+    ex:'"Her eloquence won over even the most sceptical audience members."',
+    fr:'éloquence', ar:'بلاغة' },
+];
 
-<section id="faq" class="section">
-  <span class="badge">FAQ</span>
-  <div class="grid">
-    <div class="card">
-      <h3>Who is Tutoriq for?</h3>
-      <p class="muted">Adult learners (18+) preparing for exams, language practice, and professional upskilling.</p>
-    </div>
-    <div class="card">
-      <h3>What languages are supported?</h3>
-      <p class="muted">Arabic, French, and English at launch, with more to come.</p>
-    </div>
-    <div class="card">
-      <h3>When can I start?</h3>
-      <p class="muted">Join the waitlist today. Early users get extended minutes and help shape the roadmap.</p>
-    </div>
-  </div>
-</section>
+var QUESTIONS = [
+  { cat:'Vocabulary', q:'Which word means "able to recover quickly from difficulties"?',
+    opts:['fragile','resilient','timid','verbose'], ans:1,
+    exp:'"Resilient" comes from Latin resilire (to spring back). It describes bouncing back from adversity.' },
+  { cat:'Grammar', q:'Choose the correct sentence.',
+    opts:["She don't know the answer.","She doesn't knows the answer.","She doesn't know the answer.","She not know the answer."], ans:2,
+    exp:"Third-person singular present simple uses 'doesn't' + base verb: 'She doesn't know.'" },
+  { cat:'Vocabulary', q:'What does "meticulous" mean?',
+    opts:['careless','showing great attention to detail','very loud','extremely fast'], ans:1,
+    exp:'"Meticulous" means taking extreme care with details.' },
+  { cat:'IELTS Tip', q:'In IELTS Writing Task 2, what should your introduction include?',
+    opts:['All your arguments','A paraphrase of the question and your thesis','A conclusion','Statistics only'], ans:1,
+    exp:'A strong Task 2 introduction paraphrases the prompt and states your position clearly.' },
+  { cat:'Vocabulary', q:'"Eloquent" most closely means:',
+    opts:['silent','angry','fluent and persuasive','confused'], ans:2,
+    exp:'"Eloquent" describes someone who expresses ideas clearly and persuasively.' },
+  { cat:'Grammar', q:'Which sentence uses the past perfect correctly?',
+    opts:['I had eaten before she arrived.','I have ate before she arrived.','I was eaten before she arrived.','I ate before she has arrived.'], ans:0,
+    exp:'Past perfect (had + past participle) shows an action completed before another past action.' },
+  { cat:'Vocabulary', q:'What is a "euphemism"?',
+    opts:['a spelling mistake','a mild word replacing a harsh one','a type of poem','a grammar rule'], ans:1,
+    exp:'Euphemisms soften language - e.g. "passed away" instead of "died".' },
+  { cat:'French', q:'What does "persévérance" mean in English?',
+    opts:['patience','perseverance','perspective','personality'], ans:1,
+    exp:'"Persévérance" is French for "perseverance" - continued effort despite difficulty.' },
+  { cat:'Vocabulary', q:'Which word means "a subtle difference in meaning"?',
+    opts:['nuance','ambiguity','clarity','simplicity'], ans:0,
+    exp:'"Nuance" refers to a subtle shade of meaning, borrowed into English from French.' },
+  { cat:'IELTS Tip', q:'In IELTS Speaking Part 2, how long should your talk be?',
+    opts:['30 seconds','1-2 minutes','5 minutes','10 minutes'], ans:1,
+    exp:'You speak for 1-2 minutes on a cue card topic. You get 1 minute to prepare beforehand.' },
+  { cat:'Grammar', q:'Choose the correct conditional: "If I _____ harder, I would have passed."',
+    opts:['study','studied','had studied','have studied'], ans:2,
+    exp:'Third conditional uses "had + past participle" to talk about past situations that did not happen.' },
+  { cat:'Vocabulary', q:'"Pragmatic" means:',
+    opts:['very emotional','dealing with things realistically','overly theoretical','extremely cautious'], ans:1,
+    exp:'"Pragmatic" describes a practical, sensible approach rather than an idealistic one.' },
+  { cat:'Vocabulary', q:'What does "alleviate" mean?',
+    opts:['to worsen','to ignore','to make less severe','to celebrate'], ans:2,
+    exp:'"Alleviate" means to reduce or relieve something unpleasant - e.g. "alleviate pain".' },
+  { cat:'Grammar', q:'Which is the correct comparative? "This book is _____ than that one."',
+    opts:['more interesting','most interesting','interestinger','interestingest'], ans:0,
+    exp:'For adjectives of 3+ syllables, use "more + adjective" to form the comparative.' },
+  { cat:'Vocabulary', q:'"Converge" means:',
+    opts:['to separate','to come together from different directions','to disagree','to accelerate'], ans:1,
+    exp:'"Converge" means to move towards the same point from different starting positions.' },
+  { cat:'Vocabulary', q:'Which word is a synonym of "concise"?',
+    opts:['verbose','lengthy','brief','complicated'], ans:2,
+    exp:'"Concise" and "brief" both mean using few words without losing meaning.' },
+];
 
-<footer>
-  <div class="small">© <span id="y"></span> Tutoriq. All rights reserved.</div>
-  <div class="small">Contact: <a href="mailto:hello@tutoriq.app">hello@tutoriq.app</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></div>
-</footer>
+/* Streak */
+function initStreak() {
+  var today = new Date().toDateString();
+  var last = localStorage.getItem('tq_last');
+  var streak = parseInt(localStorage.getItem('tq_streak') || '0', 10);
+  if (last !== today) {
+    var yest = new Date(Date.now() - 86400000).toDateString();
+    streak = (last === yest) ? streak + 1 : 1;
+    localStorage.setItem('tq_streak', streak);
+    localStorage.setItem('tq_last', today);
+  }
+  document.getElementById('streakCount').textContent =
+    streak === 1 ? '1-day streak' : streak + '-day streak';
+  document.getElementById('streakMsg').textContent =
+    streak >= 7 ? '&#127942; Amazing \u2014 keep it going!' :
+    streak >= 3 ? 'Great habit forming!' : 'Visit daily to keep your streak!';
+}
 
-  </div>
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+/* Daily Word */
+var wIdx = 0;
+function getDayIdx() {
+  return Math.floor((Date.now() - new Date(2025,0,1).getTime()) / 86400000) % WORDS.length;
+}
+function renderWord(i) {
+  var w = WORDS[i];
+  document.getElementById('wordEn').textContent = w.en;
+  document.getElementById('wordPhonetic').textContent = w.ph;
+  document.getElementById('wordPos').textContent = w.pos;
+  document.getElementById('wordDef').textContent = w.def;
+  document.getElementById('wordExample').textContent = w.ex;
+  document.getElementById('wordCounter').textContent = (i+1) + ' / ' + WORDS.length;
+  var learned = JSON.parse(localStorage.getItem('tq_learned') || '[]');
+  var isL = learned.indexOf(w.en) !== -1;
+  var btn = document.getElementById('learnedBtn');
+  btn.textContent = isL ? '\u2713 Learned!' : '\u2713 Mark learned';
+  btn.style.background = isL ? 'linear-gradient(135deg,#22c55e,#16a34a)' : '';
+  document.getElementById('wordTranslations').innerHTML =
+    '<div class="word-trans-item"><div class="lang">\ud83c\uddeb\ud83c\uddf7 French</div><div class="trans">' + w.fr + '</div></div>' +
+    '<div class="word-trans-item"><div class="lang">\ud83c\uddf8\ud83c\udde6 Arabic</div><div class="trans" dir="rtl" lang="ar">' + w.ar + '</div></div>';
+}
+function changeWord(d) { wIdx = (wIdx + d + WORDS.length) % WORDS.length; renderWord(wIdx); }
+function markWordLearned() {
+  var w = WORDS[wIdx];
+  var learned = JSON.parse(localStorage.getItem('tq_learned') || '[]');
+  if (learned.indexOf(w.en) === -1) learned.push(w.en);
+  localStorage.setItem('tq_learned', JSON.stringify(learned));
+  renderWord(wIdx);
+}
+
+/* Quiz */
+var qList = [], qIdx = 0, qCorrect = 0, qDone = false;
+function shuffle(a) {
+  var b = a.slice();
+  for (var i = b.length-1; i > 0; i--) {
+    var j = Math.floor(Math.random()*(i+1)), t = b[i]; b[i]=b[j]; b[j]=t;
+  }
+  return b;
+}
+function startQuiz() {
+  qList = shuffle(QUESTIONS).slice(0,10); qIdx=0; qCorrect=0; renderQ();
+}
+function renderQ() {
+  if (qIdx >= qList.length) { showResult(); return; }
+  qDone = false;
+  var q = qList[qIdx];
+  document.getElementById('quizCat').textContent = q.cat;
+  document.getElementById('quizNum').textContent = 'Q ' + (qIdx+1) + ' / ' + qList.length;
+  document.getElementById('quizScore').textContent = '\u2714 ' + qCorrect + ' correct';
+  document.getElementById('quizFill').style.width = (qIdx/qList.length*100) + '%';
+  document.getElementById('quizQ').textContent = q.q;
+  document.getElementById('quizExplain').style.display = 'none';
+  var opts = document.getElementById('quizOpts');
+  opts.innerHTML = '';
+  q.opts.forEach(function(o,i) {
+    var b = document.createElement('button');
+    b.className = 'quiz-opt'; b.textContent = o;
+    b.onclick = function() { ansQ(i); };
+    opts.appendChild(b);
+  });
+  document.getElementById('quizActions').innerHTML = '';
+}
+function ansQ(chosen) {
+  if (qDone) return; qDone = true;
+  var q = qList[qIdx];
+  document.querySelectorAll('.quiz-opt').forEach(function(b,i) {
+    b.disabled = true;
+    if (i === q.ans) b.classList.add('correct');
+    else if (i === chosen) b.classList.add('wrong');
+  });
+  if (chosen === q.ans) qCorrect++;
+  document.getElementById('quizScore').textContent = '\u2714 ' + qCorrect + ' correct';
+  var ex = document.getElementById('quizExplain');
+  ex.textContent = q.exp; ex.style.display = 'block';
+  var nb = document.createElement('button');
+  nb.className = 'btn';
+  nb.textContent = qIdx+1 < qList.length ? 'Next question \u2192' : 'See results \u2192';
+  nb.onclick = function() { qIdx++; renderQ(); };
+  var a = document.getElementById('quizActions'); a.innerHTML = ''; a.appendChild(nb);
+}
+function showResult() {
+  var pct = Math.round(qCorrect/qList.length*100);
+  var m = pct>=80?'&#127942; Excellent!':pct>=60?'&#128077; Good effort!':'&#128218; Keep practising!';
+  document.getElementById('quizCat').textContent = 'Result';
+  document.getElementById('quizNum').textContent = '';
+  document.getElementById('quizFill').style.width = pct + '%';
+  document.getElementById('quizQ').innerHTML = m + ' You scored ' + qCorrect + ' / ' + qList.length + ' (' + pct + '%)';
+  document.getElementById('quizOpts').innerHTML = '';
+  document.getElementById('quizExplain').style.display = 'none';
+  var rb = document.createElement('button');
+  rb.className = 'btn'; rb.textContent = '\u21ba Try again';
+  rb.onclick = startQuiz;
+  var a = document.getElementById('quizActions'); a.innerHTML = ''; a.appendChild(rb);
+}
+
+/* Timer */
+var tDur=25*60, tLeft=25*60, tRunning=false, tInterval=null, tSessions=0, tLabel='Focus';
+var ARC=515;
+function setTimerMode(btn) {
+  document.querySelectorAll('.timer-mode-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  tLabel = btn.getAttribute('data-label');
+  tDur = parseInt(btn.getAttribute('data-dur'),10)*60;
+  resetTimer();
+}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function updUI() {
+  var d = document.getElementById('timerDisplay');
+  d.textContent = fmt(tLeft); d.classList.toggle('running',tRunning);
+  document.title = tRunning ? fmt(tLeft)+' \u2013 Tutoriq' : 'Tutoriq \u2013 Daily Learning';
+  document.getElementById('timerArc').setAttribute('stroke-dashoffset', ARC*(1-tLeft/tDur));
+}
+function toggleTimer() {
+  if (tRunning) {
+    clearInterval(tInterval); tRunning=false;
+    document.getElementById('timerStartBtn').textContent='\u25b6 Resume';
+  } else {
+    tRunning=true; document.getElementById('timerStartBtn').textContent='\u23f8 Pause';
+    tInterval=setInterval(function(){
+      tLeft--; updUI();
+      if(tLeft<=0){
+        clearInterval(tInterval); tRunning=false;
+        document.getElementById('timerStartBtn').textContent='\u25b6 Start';
+        if(tLabel==='Focus'){ tSessions=Math.min(tSessions+1,4); updDots(); }
+        if(window.Notification&&Notification.permission==='granted')
+          new Notification('Tutoriq',{body:tLabel+' session complete! \ud83c\udf89'});
+      }
+    },1000);
+  }
+  updUI();
+}
+function resetTimer(){clearInterval(tInterval);tRunning=false;tLeft=tDur;document.getElementById('timerStartBtn').textContent='\u25b6 Start';updUI();}
+function updDots(){
+  for(var i=0;i<4;i++) document.getElementById('dot'+i).classList.toggle('done',i<tSessions);
+  document.getElementById('sessionLabel').textContent=tSessions<4?'Session '+(tSessions+1)+' of 4':'\ud83c\udf89 Great work! Take a long break.';
+}
+
+/* FAQ */
+function toggleFaq(btn){
+  var item=btn.closest('.faq-item'), wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open');});
+  if(!wasOpen) item.classList.add('open');
+}
+
+/* Init */
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('y').textContent=new Date().getFullYear();
+  initStreak(); wIdx=getDayIdx(); renderWord(wIdx);
+  startQuiz(); updUI(); updDots();
+  if(window.Notification&&Notification.permission==='default')
+    document.getElementById('timerStartBtn').addEventListener('click',function(){Notification.requestPermission();},{once:true});
+});
+</script>
 </body>
 </html>
