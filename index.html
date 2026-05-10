@@ -1,202 +1,120 @@
 <!doctype html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tutoriq – Multilingual Voice‑First AI Tutor</title>
-  <meta name="description" content="Tutoriq is a multilingual, voice‑first AI tutor for adult learners. Speak naturally, get instant examples, and retain more with spaced review." />
+  <title>ScentTalk – Fragrance Reviews & Talking Blog</title>
+  <meta name="description" content="ScentTalk is a fragrance review and talking blog with honest perfume reviews, scent notes, performance insights, and weekly fragrance conversations." />
   <link rel="canonical" href="https://tutoriq.app/" />
-  <meta property="og:title" content="Tutoriq – Multilingual Voice‑First AI Tutor" />
-  <meta property="og:description" content="Speak naturally with your AI tutor. Arabic · French · English. Quizzes + spaced repetition for long‑term retention." />
+  <meta property="og:title" content="ScentTalk – Fragrance Reviews & Talking Blog" />
+  <meta property="og:description" content="Discover fragrance reviews and weekly perfume talks covering scent profile, longevity, projection, and value." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tutoriq.app/" />
-  <meta property="og:image" content="https://tutoriq.app/og.png" />
   <meta name="theme-color" content="#111827" />
   <style>
     :root {
-      --bg: #0b1220;
-      --card: #0f172a;
-      --muted: #94a3b8;
-      --text: #e5e7eb;
-      --brand: #7c3aed; /* violet */
-      --brand-2: #22d3ee; /* cyan */
-      --accent: #38bdf8; /* light blue */
+      --bg: #0f0c16;
+      --card: #1a1426;
+      --muted: #b8afca;
+      --text: #f5f1ff;
+      --brand: #d97706;
+      --brand-2: #7c3aed;
     }
     * { box-sizing: border-box; }
-    html, body { height: 100%; }
     body {
-      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text); background: radial-gradient(1200px 600px at 80% -10%, rgba(34,211,238,.15), transparent),
-               radial-gradient(800px 400px at 10% -10%, rgba(124,58,237,.18), transparent), var(--bg);
-      line-height: 1.5;
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(217,119,6,.2), transparent),
+                  radial-gradient(900px 500px at 10% -15%, rgba(124,58,237,.22), transparent), var(--bg);
+      line-height: 1.6;
     }
     a { color: inherit; text-decoration: none; }
-    .container { max-width: 1080px; margin: 0 auto; padding: 28px 20px 80px; }
-    .tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; font-size: 12px; color: var(--muted); background: rgba(255,255,255,.03); }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0 30px; }
-    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
-    .logo-badge { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); font-weight: 800; }
-    .nav a { color: var(--muted); margin-left: 16px; font-size: 14px; }.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: center; padding: 20px 0 10px; }
-@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }
-.h1 { font-size: clamp(32px, 4vw, 56px); line-height: 1.05; margin: 10px 0 14px; font-weight: 800; letter-spacing: -0.5px; }
-.muted { color: var(--muted); }
-.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
-.btn {
-  display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; font-weight: 600;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2)); border: none; color: white; cursor: pointer;
-  box-shadow: 0 10px 24px rgba(124,58,237,.25), 0 8px 18px rgba(34,211,238,.12);
-}
-.btn-secondary { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid rgba(255,255,255,.12); }
-.hero-card {
-  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-  border: 1px solid rgba(255,255,255,.10); border-radius: 16px; padding: 18px; box-shadow: 0 8px 30px rgba(0,0,0,.25);
-}
-.screen {
-  border-radius: 12px; background: #0b1020; border: 1px solid rgba(255,255,255,.08); padding: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px;
-}
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
-@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-.card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 18px; }
-.card h3 { margin: 8px 0 6px; font-size: 18px; }
-.badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: rgba(124,58,237,.15); color: #e9d5ff; font-size: 12px; }
-.section { margin-top: 64px; }
-.pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-@media (max-width: 900px) { .pricing { grid-template-columns: 1fr; } }
-.price { border: 1px solid rgba(255,255,255,.08); border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); padding: 22px; }
-.price h4 { margin: 8px 0 6px; font-size: 18px; }
-.price .big { font-size: 34px; font-weight: 800; }
-.list { margin: 10px 0 0; padding: 0; list-style: none; }
-.list li { margin: 8px 0; display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; }
-.ok { margin-top: 2px; }
-footer { margin-top: 60px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center; color: var(--muted); border-top: 1px solid rgba(255,255,255,.08); padding-top: 16px; }
-.small { font-size: 12px; }
-.langs { display: inline-flex; gap: 8px; flex-wrap: wrap; }
-.langs span { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); padding: 6px 10px; border-radius: 999px; font-size: 12px; color: #d1d5db; }
-
+    .container { max-width: 980px; margin: 0 auto; padding: 28px 20px 72px; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding-bottom: 24px; }
+    .logo { font-weight: 800; letter-spacing: .2px; }
+    .nav a { color: var(--muted); margin-left: 14px; font-size: 14px; }
+    .hero { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 24px; }
+    .tag { display: inline-block; font-size: 12px; color: #fde68a; background: rgba(217,119,6,.15); border: 1px solid rgba(217,119,6,.35); border-radius: 999px; padding: 6px 10px; }
+    h1 { font-size: clamp(30px, 5vw, 50px); line-height: 1.05; margin: 12px 0; }
+    h2 { margin: 0 0 8px; font-size: 24px; }
+    .muted { color: var(--muted); }
+    .section { margin-top: 42px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.10); border-radius: 14px; padding: 18px; }
+    .meta { font-size: 12px; color: #ddd6fe; margin-bottom: 8px; }
+    footer { margin-top: 52px; border-top: 1px solid rgba(255,255,255,.1); color: var(--muted); padding-top: 16px; font-size: 13px; }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <a class="logo" href="#">
-        <span class="logo-badge">TQ</span>
-        <span>Tutoriq</span>
-      </a>
+      <a class="logo" href="#">ScentTalk</a>
       <nav class="nav">
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#talking">Talking Blog</a>
+        <a href="#about">About</a>
       </nav>
-    </header><div class="hero">
-  <div>
-    <span class="tag">Multilingual • Voice‑first • Adult learners</span>
-    <h1 class="h1">Speak with your AI tutor.<br/>Learn faster, remember longer.</h1>
-    <p class="muted">Tutoriq lets you learn by talking—then cements knowledge with short quizzes and spaced review. Arabic • French • English.</p>
-    <div class="langs" aria-label="Supported languages">
-      <span>Arabic</span><span>French</span><span>English</span>
-    </div>
-    <div class="cta">
-      <a class="btn" href="https://tally.so/r/your-form-id" target="_blank" rel="noopener">Join the waitlist</a>
-      <a class="btn btn-secondary" href="#features">See how it works</a>
-    </div>
-    <p class="small muted" style="margin-top:10px">For adults 18+ • Built with privacy in mind • Cancel anytime</p>
-  </div>
-  <div class="hero-card">
-    <div class="screen" aria-label="Conversation preview">
+    </header>
 
-<pre><code>&gt; How do I prep for IELTS Speaking Task 2?
+    <section class="hero">
+      <span class="tag">Fragrance Review & Talking Blog</span>
+      <h1>Real perfume reviews.<br />Real scent conversations.</h1>
+      <p class="muted">Explore in-depth fragrance reviews, honest wear tests, and short talking posts on what makes each scent memorable.</p>
+    </section>
 
-Tutor: Let’s simulate a Task 2 cue card. I’ll time you, then we’ll improve your fluency and lexical resource.
+    <section id="reviews" class="section">
+      <h2>Featured Fragrance Reviews</h2>
+      <p class="muted">Every review includes notes, performance, season, and overall value.</p>
+      <div class="grid">
+        <article class="card">
+          <div class="meta">Rose / Amber / Musk</div>
+          <h3>Velvet Oud Night – Review</h3>
+          <p class="muted">A rich evening scent with smooth oud and warm amber. Strong projection in the first 2 hours and 8+ hours of wear.</p>
+        </article>
+        <article class="card">
+          <div class="meta">Citrus / Green Tea / Cedar</div>
+          <h3>Morning Leaf – Review</h3>
+          <p class="muted">Fresh, uplifting, and clean. Great for daytime and office wear with moderate longevity and subtle trail.</p>
+        </article>
+        <article class="card">
+          <div class="meta">Vanilla / Tonka / Sandalwood</div>
+          <h3>Golden Vanilla – Review</h3>
+          <p class="muted">Comforting sweetness balanced by creamy woods. Best in cool weather, ideal for casual evenings.</p>
+        </article>
+      </div>
+    </section>
 
-&gt; Great — start!
+    <section id="talking" class="section">
+      <h2>Talking About Fragrance</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Why Some Perfumes Smell Different on Skin</h3>
+          <p class="muted">Body chemistry, temperature, and humidity can shift top notes quickly and reveal deeper notes sooner.</p>
+        </article>
+        <article class="card">
+          <h3>How to Build a Small Signature Collection</h3>
+          <p class="muted">Start with three styles: one fresh daily scent, one cozy evening scent, and one bold statement perfume.</p>
+        </article>
+        <article class="card">
+          <h3>Longevity vs Projection: What Matters More?</h3>
+          <p class="muted">Long wear is useful, but projection control often matters more for comfort in social and work settings.</p>
+        </article>
+      </div>
+    </section>
 
-Tutor: Topic: “Describe a memorable journey.” You have 1 minute to prepare… Now speak for up to 2 minutes.
+    <section id="about" class="section">
+      <h2>About This Blog</h2>
+      <p class="muted">ScentTalk is dedicated to fragrance lovers who want practical reviews and simple discussions without hype. New review and talking posts are published weekly.</p>
+    </section>
 
-(After) Tutor: Feedback — Fluency 6.0: good pace, a few pauses. Vocabulary: nice range; avoid “very”. Try: “remarkable, exhausting, breathtaking.”</code></pre></div>
-  </div>
-</div>
-
-<section id="features" class="section">
-  <span class="badge">How it helps</span>
-  <h2 style="margin:10px 0 4px">Your personal voice tutor</h2>
-  <p class="muted">Practice by speaking naturally. Tutoriq answers in real time, then reinforces learning with retrieval practice and spaced repetition.</p>
-  <div class="grid" style="margin-top:18px">
-    <div class="card">
-      <h3>Natural conversations</h3>
-      <p class="muted">Ask follow‑ups, get examples and analogies tailored to your level. Learn like you’re talking to a real tutor.</p>
-    </div>
-    <div class="card">
-      <h3>Quizzes that stick</h3>
-      <p class="muted">Short, targeted questions right after each lesson, then spaced review so knowledge actually sticks.</p>
-    </div>
-    <div class="card">
-      <h3>Made for adults</h3>
-      <p class="muted">Tutoriq is designed for learners 18+. Transparent AI disclosures and exportable transcripts.</p>
-    </div>
-  </div>
-</section>
-
-<section id="pricing" class="section">
-  <span class="badge">Early pricing</span>
-  <h2 style="margin:10px 0 4px">Simple plans as you grow</h2>
-  <div class="pricing">
-    <div class="price">
-      <h4>Starter</h4>
-      <div class="big">$9<span class="muted" style="font-size:16px">/mo</span></div>
-      <ul class="list">
-        <li><span class="ok">✔</span><span>60 min voice tutoring</span></li>
-        <li><span class="ok">✔</span><span>Unlimited quizzes</span></li>
-        <li><span class="ok">✔</span><span>Spaced review</span></li>
-      </ul>
-    </div>
-    <div class="price" style="border-color: rgba(124,58,237,.6)">
-      <h4>Pro</h4>
-      <div class="big">$29<span class="muted" style="font-size:16px">/mo</span></div>
-      <ul class="list">
-        <li><span class="ok">✔</span><span>300 min voice tutoring</span></li>
-        <li><span class="ok">✔</span><span>Upload PDFs → quizzes</span></li>
-        <li><span class="ok">✔</span><span>Priority support</span></li>
-      </ul>
-    </div>
-    <div class="price">
-      <h4>Team</h4>
-      <div class="big">Custom</div>
-      <ul class="list">
-        <li><span class="ok">✔</span><span>Seats for schools/bootcamps</span></li>
-        <li><span class="ok">✔</span><span>Admin dashboard</span></li>
-        <li><span class="ok">✔</span><span>SLA & onboarding</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="faq" class="section">
-  <span class="badge">FAQ</span>
-  <div class="grid">
-    <div class="card">
-      <h3>Who is Tutoriq for?</h3>
-      <p class="muted">Adult learners (18+) preparing for exams, language practice, and professional upskilling.</p>
-    </div>
-    <div class="card">
-      <h3>What languages are supported?</h3>
-      <p class="muted">Arabic, French, and English at launch, with more to come.</p>
-    </div>
-    <div class="card">
-      <h3>When can I start?</h3>
-      <p class="muted">Join the waitlist today. Early users get extended minutes and help shape the roadmap.</p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="small">© <span id="y"></span> Tutoriq. All rights reserved.</div>
-  <div class="small">Contact: <a href="mailto:hello@tutoriq.app">hello@tutoriq.app</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></div>
-</footer>
-
+    <footer>
+      © <span id="y"></span> ScentTalk · Contact: <a href="mailto:hello@tutoriq.app">hello@tutoriq.app</a>
+    </footer>
   </div>
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    document.getElementById("y").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
