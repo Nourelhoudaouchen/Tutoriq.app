@@ -1,0 +1,22 @@
+{
+  "name": "tutoriq-remotion",
+  "version": "1.0.0",
+  "description": "Remotion video project for Tutoriq promo videos",
+  "private": true,
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render TutoriqPromo out/tutoriq-promo.mp4",
+    "build:vertical": "remotion render TutoriqPromoVertical out/tutoriq-promo-vertical.mp4",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.466",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.466"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "typescript": "5.5.4"
+  }
+}
